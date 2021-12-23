@@ -3,12 +3,15 @@ A discord bot thet lets you play Space invaders.
 
 It is my first discord bot... so please give any suggestions to improve it :]
 
-Commands in this bot:
+# Commands in this bot:
 
 $hello: Just to make the bot greet you.
+
 $help: Just for fun.
-$play: To play SPACE INVADERS
-$stop: To stop playing SPACE INVADERS
+
+$play: To play SPACE INVADERS.
+
+$stop: To stop playing SPACE INVADERS.
 
 # Install instructions
 Download the latest Source code.
