@@ -1,5 +1,5 @@
-import discord as discord
-import random as random
+import discord
+import random
 
 client = discord.Client()
 playing = False
