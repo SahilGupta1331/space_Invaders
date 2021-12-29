@@ -1,7 +1,7 @@
 import discord
 import random
 
-client = discord.Client()
+bot = commands.Bot(command_prefix="$")
 playing = False
 sent: discord.Message = discord.Message
 player: discord.User = discord.User
@@ -29,6 +29,7 @@ for i in room:
     for ii in range(0, 10):
         room[i].pop(ii)
         room[i].insert(ii, stuff['empty'])
+        
 room[9].pop(5)
 room[9].insert(5, stuff['player'])
 
@@ -125,12 +126,16 @@ async def gamemap(message: discord.Message):
     for pos in enemyPoses:
         if random.randint(0, 10) > 3:
             await down(room, stuff['empty'], stuff['enemy'], pos)
+        
     for pos in bulletPoses:
         await up(room, stuff['empty'], stuff['bullet'], pos)
+        
     bulletPoses.clear()
     enemyPoses.clear()
+        
     for i in range(1, len(room)+1):
         toSend += '\n' + "".join(room[i])
+        
     if not playing:
         sent = await message.channel.send(toSend)
         await sent.add_reaction('◀️')
@@ -160,56 +165,73 @@ async def updater(message: discord.Message):
     player_pos()
 
 
-@client.event
+@bot.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+    print(f"Logged in as {bot.user.name} ({bot.user.id})")
+
+    
+@bot.command()
+async def hello(ctx) -> discord.Message:
+    """ A hello from the bot! """
+    
+    return await ctx.reply("Hello! I'm the Retro Bot. Use **$help** for a list of my commands!", mention_author=False)
 
 
-@client.event
-async def on_message(message: discord.Message):
+@bot.command()
+async def stop(ctx) -> discord.Message:
+    """ Stops the current SPACE INVADERS game if there is any. """
     global playing
     global sent
     global playerPos
     global enemyPoses
     global bulletPoses
-    if message.author == client.user:
-        return
+    
+    if playing:
+        if player == ctx.author:
+            message = await ctx.reply("Stopping SPACE INVADERS :space_invader:...")
+            await sent.delete()
+            playing = False
+            sent = message
+            enemyPoses.clear()
+            bulletPoses.clear()
+            return await message.edit("Successfully stopped SPACE INVADERS :space_invader:! Use **$play** to play again.")
+            
+        else:
+            return await ctx.reply(f"Only **{player.display_name}** can stop playing SPACE INVADERS :space_invader: cause he has started!", mention_author=False)
+            
     else:
-        if message.content.startswith('$hello'):
-            await message.channel.send("Hello! I'm the Retro Bot. Use $help command to view my abilities")
-        elif message.content.startswith('$help'):
-            await message.channel.send("Sorry, I cannot help you :sweat: but if you want to play SPACE INVADERS, use $play")
-        elif message.content.startswith('$stop'):
-            if playing:
-                if player == message.author:
-                    await message.channel.send('Stopped playing SPACE INVADERS :space_invader:\nUse $play to play again.')
-                    await sent.delete()
-                    playing = False
-                    sent = discord.Message
-                    enemyPoses.clear()
-                    bulletPoses.clear()
-                else:
-                    await message.channel.send('Only '+player.display_name+' can stop playing :space_invader: as he started!')
-            else:
-                await message.channel.send('Not playing!\nUse $play to start playing.')
-        elif message.content.startswith('$play'):
-            for i in room:
-                for ii in range(0, 9):
-                    room[i].pop(ii)
-                    room[i].insert(ii, stuff['empty'])
-            room[9].pop(5)
-            room[9].insert(5, stuff['player'])
-            playerPos = []
-            if playing:
-                await message.channel.send('Already playing!\nUse $stop to stop playing.')
-            else:
-                await updater(message)
+        return await ctx.reply("No one is playing SPACE INVADERS :space_invader:. Use **$play** to start playing.")
+    
+    
+@bot.command()
+async def start(ctx) -> None:
+    global playing
+    global sent
+    global playerPos
+    global enemyPoses
+    global bulletPoses
+    
+    """ Starts a new SPACE INVADERS game. """
+    
+    for i in room:
+        for ii in range(0, 9):
+            room[i].pop(ii)
+            room[i].insert(ii, stuff['empty'])
+            
+        room[9].pop(5)
+        room[9].insert(5, stuff['player'])
+        playerPos = []
+        
+        if playing:
+            return await ctx.reply("You're already playing SPACE INVADERS :space_invader:! Use **$stop** to stop playing.")
+        
+        await updater(ctx.message)
+        
 
-
-@client.event
+@bot.event
 async def on_reaction_add(reaction: discord.Reaction, user: discord.User):
     global playing
-    if user == client.user:
+    if user.bot:
         return
     elif reaction.message.id == sent.id:
         emoji = reaction.emoji
@@ -245,4 +267,4 @@ async def on_reaction_add(reaction: discord.Reaction, user: discord.User):
                 await updater(message)
 
 
-client.run('Your bot token here')
+but.run("Your token here", reconnect=True)
