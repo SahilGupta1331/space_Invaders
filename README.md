@@ -1,7 +1,7 @@
 # SPACE INVADERS
 A discord bot thet lets you play Space Invaders.
 
-It is my first discord bot... so please give any suggestions to improve it :]
+This is my first discord bot... so please give any suggestions to improve it :]
 
 # Commands this bot has
 $help - Shows you a list of all commands.
