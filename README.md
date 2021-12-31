@@ -5,8 +5,11 @@ It is my first discord bot... so please give any suggestions to improve it :]
 
 # Commands this bot has
 $help - Shows you a list of all commands.
+
 $hello - A friendly hello from the bot!
+
 $play - Starts a SPACE INVADERS game.
+
 $stop - Stops the current SPACE INVADERS game.
 
 # Install instructions
