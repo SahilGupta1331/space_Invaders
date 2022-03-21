@@ -12,7 +12,13 @@ $play - Starts a SPACE INVADERS game.
 
 $stop - Stops the current SPACE INVADERS game.
 
-# Install instructions
+$jump - Jumps to the message of current game
+
+$lboard, $leaderboard, $lboards or $leaderboards - Shows the current leaderboards
+
+$refresh - To refresh and empty the current leaderboards (owner only command, add your id in owner_id attribute in line 232 to enable it)
+
+# Self hosting instructions
 
 Download the code.
 
@@ -25,5 +31,9 @@ Replace TOKEN with the token that you just copied.
 Now download Python at https://www.python.org/downloads. Make sure to add it to path when installing.
 
 Now that we've installed Python and added it to the path. Open Command Prompt and run "pip install discord.py".
+
+After discord.py is installed, run "pip install tabulate" and finally .
+
+Other than self host, you can also host it on any server if you want.
 
 If something goes wrong make sure to contact me!
