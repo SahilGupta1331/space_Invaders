@@ -9,10 +9,11 @@ players = {}
 stuff = {'player':  ":railway_car:",
          'empty':  ":white_large_square:",
          'enemy':  ":space_invader:", 'bullet': ":exclamation:"}
-leaderboards = {}
-if len(list(reader(open('leaderboard.csv', 'r')))) != 0:
-    leaderboards = {r[0]: r[:2]+[int(r[2])] for r in list(
-        reader(open('leaderboard.csv', 'r')))}
+
+try:
+    leaderboards = {r[0]: r[:2]+[int(r[2])] for r in list(reader(open('leaderboard.csv', 'r')))}
+except:
+    leaderboards = {}
 
 
 async def left(dictionary, inst_replace, inst_player, pos):
