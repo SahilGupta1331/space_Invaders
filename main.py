@@ -257,7 +257,7 @@ async def refresh(ctx: commands.Context):
         listcsv = list(map(lambda x: [listcsv.index(x)+1]+x[1:], listcsv))
         if len(listcsv) > 10:
             listcsv = listcsv[:10]
-        embed = discord.Embed(title=":space_invader: __**TOP PLAYERS THIS WEEK**__ :space_invader:",
+        embed = discord.Embed(title=":space_invader: __**OLD LEADERBOARDS**__ :space_invader:",
                               description=f"```{tabulate(listcsv, headers=['Rank','Username','Score'])}```",
                               colour=discord.Colour.gold())
         await ctx.message.author.send(embed=embed)
@@ -270,7 +270,7 @@ async def refresh(ctx: commands.Context):
 
 @bot.command(aliases=['leaderboard', 'leaderboards', 'lboards'])
 async def lboard(ctx):
-    """ Shows you the current leaderboard and your rank """
+    """ Shows you the current leaderboard """
 
     with open('leaderboard.csv', 'r') as board:
         listcsv = list(reader(board))
