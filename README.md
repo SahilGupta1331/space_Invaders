@@ -28,6 +28,8 @@ Copy the bot's token, open the main.py file with any text editor you like, scrol
 
 Replace TOKEN with the token that you just copied.
 
+On the Discord Bot's Portal, go to OAuth2 -> URL Generator and select bot, Administrator and then open the Generated Url to add the bot to your server.
+
 Now download Python at https://www.python.org/downloads. Make sure to add it to path when installing.
 
 Now that we've installed Python and added it to the path. Open Command Prompt and run "pip install discord.py".
