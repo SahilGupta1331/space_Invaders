@@ -32,7 +32,8 @@ Now download Python at https://www.python.org/downloads. Make sure to add it to 
 
 Now that we've installed Python and added it to the path. Open Command Prompt and run "pip install discord.py".
 
-After discord.py is installed, run "pip install tabulate" and finally .
+After discord.py is installed, run "pip install tabulate" and finally run the code! \
+It should make the bot online.
 
 Other than self host, you can also host it on any server if you want.
 
